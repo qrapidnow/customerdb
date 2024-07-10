@@ -7,11 +7,11 @@ const orderRoute = require('./routes/order.router');
 
 const app = express();
 const port = process.env.PORT || 5000;
+const whitelist = ['https://digitalmenu-rouge.vercel.app'];
 
 // Setup CORS explicitly
 app.use(cors({
-  origin: (origin, callback) => {
-    const whitelist = ['https://digitalmenu-rouge.vercel.app'];
+  origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
