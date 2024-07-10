@@ -11,7 +11,7 @@ const port = process.env.PORT || 5000;
 // Setup CORS explicitly
 app.use(cors({
   origin: (origin, callback) => {
-    const whitelist = ['https://frontend1-sand.vercel.app'];
+    const whitelist = ['https://digitalmenu-rouge.vercel.app'];
     if (whitelist.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
