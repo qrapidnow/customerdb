@@ -13,8 +13,10 @@ const whitelist = ['https://digitalmenu-rouge.vercel.app'];
 app.use(cors({
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
+      console.log(`CORS allowed for origin: ${origin}`);
       callback(null, true);
     } else {
+      console.log(`CORS not allowed for origin: ${origin}`);
       callback(new Error('Not allowed by CORS'));
     }
   },
