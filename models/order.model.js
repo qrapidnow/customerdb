@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const OrderSchema = new Schema({
   name: { type: String, required: true },
   whatsapp: { type: String, required: true },
+  tableNo: { type: String, required: true },
   items: [
     {
       name: { type: String, required: true },
