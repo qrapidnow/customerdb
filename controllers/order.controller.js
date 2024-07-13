@@ -1,7 +1,7 @@
 const Order = require('../models/order.model');
 
 const saveOrder = async (req, res) => {
-  const { name, whatsapp, items } = req.body;
+  const { name, whatsapp, tableNo, items } = req.body;
 
   console.log('Received order data:', req.body);
 
@@ -9,6 +9,7 @@ const saveOrder = async (req, res) => {
     const newOrder = new Order({
       name,
       whatsapp,
+      tableNo,
       items
     });
 
