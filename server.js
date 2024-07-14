@@ -7,7 +7,7 @@ const orderRoute = require('./routes/order.router');
 
 const app = express();
 const port = process.env.PORT || 5000;
-const whitelist = ['https://digitalmenu-rouge.vercel.app'];
+const whitelist = ['https://digitalmenu-rouge.vercel.app']; // Add your frontend domain here
 
 // Setup CORS explicitly
 app.use(cors({
