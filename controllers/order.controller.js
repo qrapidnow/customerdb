@@ -10,7 +10,11 @@ const saveOrder = async (req, res) => {
       name,
       whatsapp,
       tableNo,
-      items
+      items: items.map(item => ({
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+      })),
     });
 
     const savedOrder = await newOrder.save();
