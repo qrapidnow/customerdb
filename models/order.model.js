@@ -9,7 +9,6 @@ const OrderSchema = new Schema({
     {
       name: { type: String, required: true },
       price: { type: Number, required: true },
-      quantity: { type: Number, required: true }, // Add quantity here
     }
   ],
   createdAt: { type: Date, default: Date.now }
