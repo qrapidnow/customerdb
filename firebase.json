@@ -8,8 +8,8 @@
     ],
     "rewrites": [
       {
-        "source": "/api/**",
-        "function": "app" // Ensure this points to your Express server function
+        "source": "/orders/**",
+        "function": "app"  // Ensure this function name 'app' matches the Firebase Function name
       },
       {
         "source": "**",
