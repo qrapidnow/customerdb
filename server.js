@@ -1,18 +1,22 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-require('dotenv').config();
-const orderRoute = require('./routes/order.router');
+const admin = require('firebase-admin');
+const serviceAccount = require('./path/to/service-account-file.json');
 
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
+
+const db = admin.firestore();
 const app = express();
 const port = process.env.PORT || 5000;
-const whitelist = ['https://digitalmenu-rouge.vercel.app']; // Add your frontend domain here
 
-// Setup CORS explicitly
+// Adjust CORS settings to include your new Firebase Hosting URL
+const whitelist = ['https://customerdb-70370.web.app', 'https://digitalmenu-rouge.vercel.app'];
 app.use(cors({
   origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1 || !origin) {
+    if (whitelist.includes(origin) || !origin) {
       console.log(`CORS allowed for origin: ${origin}`);
       callback(null, true);
     } else {
@@ -35,15 +39,8 @@ app.use((req, res, next) => {
   next();
 });
 
-mongoose.connect(process.env.MONGO_URI, { 
-  useNewUrlParser: true, 
-  useUnifiedTopology: true,
-  serverSelectionTimeoutMS: 5000
-})
-.then(() => console.log('MongoDB connected'))
-.catch(err => console.error('MongoDB connection error:', err));
-
-app.use(orderRoute);
+// Updated route to use Firestore
+app.use(require('./routes/order.router')(db));
 
 app.get('/', (req, res) => {
   res.send('Hello World');
