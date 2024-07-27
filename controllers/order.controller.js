@@ -5,6 +5,8 @@ const saveOrder = async (req, res) => {
   const db = admin.firestore();
   const ordersRef = db.collection('orders');
 
+  console.log("Attempting to add document to 'orders' collection");
+
   try {
     const docRef = await ordersRef.add({
       ...req.body,
@@ -14,6 +16,7 @@ const saveOrder = async (req, res) => {
     res.status(201).json({ message: 'Order placed successfully', orderId: docRef.id });
   } catch (error) {
     console.error('Error saving order:', error);
+    console.log("Failed to write to 'orders' collection");
     res.status(500).json({ message: 'Failed to save order', error: error.toString() });
   }
 };
