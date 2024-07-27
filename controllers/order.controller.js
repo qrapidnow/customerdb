@@ -1,24 +1,21 @@
-const Order = require('../models/order.model');
+const admin = require('firebase-admin');
 
 const saveOrder = async (req, res) => {
   const { name, whatsapp, tableNo, items } = req.body;
 
-  console.log('Received order data:', req.body);
-
   try {
-    const newOrder = new Order({
+    const orderRef = admin.firestore().collection('orders').doc();
+    await orderRef.set({
       name,
       whatsapp,
       tableNo,
-      items
+      items,
+      createdAt: admin.firestore.FieldValue.serverTimestamp()
     });
-
-    const savedOrder = await newOrder.save();
-    console.log('Order saved to database:', savedOrder);
-    res.status(201).json(savedOrder);
+    res.status(201).json({ id: orderRef.id, message: 'Order saved successfully!' });
   } catch (error) {
     console.error('Error saving order:', error);
-    res.status(500).json({ message: 'Internal server error', error: error.message });
+    res.status(500).json({ message: 'Failed to save order', error: error.message });
   }
 };
 
