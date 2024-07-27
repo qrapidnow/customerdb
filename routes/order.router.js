@@ -3,7 +3,9 @@ const { saveOrder } = require('../controllers/order.controller');
 
 const router = express.Router();
 
-// POST endpoint for creating new orders
-router.post('/', saveOrder);
+router.post('/', (req, res) => {
+  console.log("Received POST request on /orders");
+  saveOrder(req, res);
+});
 
 module.exports = router;
