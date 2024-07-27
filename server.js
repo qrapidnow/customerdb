@@ -1,38 +1,38 @@
 const express = require('express');
 const cors = require('cors');
 const admin = require('firebase-admin');
-const orderRoutes = require('./routes/order.router');  // Make sure the path is correct
+const orderRoutes = require('./routes/order.router');  // Ensure this path is correct
 
 const app = express();
 const port = process.env.PORT || 5000;
 
-// Initialize Firebase Admin with credentials
-const serviceAccount = require('./service-account-key.json');  // Adjust path as needed
+// Initialize Firebase Admin SDK with credentials
+const serviceAccount = require('./service-account-key.json');  // Ensure this path is correct
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://customerdb-70370.firebaseio.com"  // Your Firebase project's database URL
 });
 
-// CORS options to allow your specific frontend domains
-const whitelist = ['https://customerdb-70370.web.app', 'https://digitalmenu-rouge.vercel.app'];
+// Define CORS options
+const whitelist = ['https://digitalmenu-rouge.vercel.app', 'https://customerdb-70370.web.app'];
 const corsOptions = {
-  origin: (origin, callback) => {
-    if (whitelist.indexOf(origin) !== -1 || !origin) {
+  origin: function (origin, callback) {
+    if (!origin || whitelist.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error('CORS not allowed'));
+      callback(new Error('Not allowed by CORS'));
     }
   },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE']
 };
 
 app.use(cors(corsOptions));
-app.use(express.json());  // Parse JSON bodies
+app.use(express.json());  // Middleware for parsing JSON bodies
 
-// Routing setup
+// Setup route handlers
 app.use('/orders', orderRoutes);
 
 // Start the server

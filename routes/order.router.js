@@ -1,9 +1,9 @@
 const express = require('express');
-const { saveOrder } = require('../controllers/order.controller'); // Correct path to your controller
+const { saveOrder } = require('../controllers/order.controller');
 
 const router = express.Router();
 
-// POST endpoint to create a new order
+// POST endpoint for creating new orders
 router.post('/', saveOrder);
 
 module.exports = router;

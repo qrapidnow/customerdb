@@ -9,7 +9,7 @@
     "rewrites": [
       {
         "source": "/orders/**",
-        "function": "app"  // Ensure this function name 'app' matches the Firebase Function name
+        "function": "app"
       },
       {
         "source": "**",
