@@ -8,6 +8,10 @@
     ],
     "rewrites": [
       {
+        "source": "/api/**",
+        "function": "app" // Ensure this points to your Express server function
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
