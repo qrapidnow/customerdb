@@ -12,7 +12,7 @@ const saveOrder = async (req, res) => {
       items,
       createdAt: admin.firestore.FieldValue.serverTimestamp()
     });
-    res.status(201).json({ id: orderRef.id, message: 'Order saved successfully!' });
+    res.status(201).json({ message: 'Order saved successfully', id: orderRef.id });
   } catch (error) {
     console.error('Error saving order:', error);
     res.status(500).json({ message: 'Failed to save order', error: error.message });
