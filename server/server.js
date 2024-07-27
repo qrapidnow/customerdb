@@ -8,7 +8,7 @@ const port = process.env.PORT || 5000;
 
 const serviceAccount = require('./service-account-key.json');
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+  credential: admin.credential.cert(serviceAccount)
 });
 
 app.use(cors({
@@ -19,7 +19,6 @@ app.use(cors({
 }));
 
 app.use(express.json());
-
 app.use('/orders', orderRoutes);
 
 app.listen(port, () => {

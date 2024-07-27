@@ -9,15 +9,12 @@
     "rewrites": [
       {
         "source": "/orders/**",
-        "function": "app"
+        "destination": "/api"
       },
       {
         "source": "**",
         "destination": "/index.html"
       }
     ]
-  },
-  "functions": {
-    "source": "functions"
   }
 }
